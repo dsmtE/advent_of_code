@@ -1,19 +1,6 @@
-# advent_of_code_2021
+# advent_of_code_2025
 
-```
-   *    *  ()   *   *
-*        * /\         *
-      *   /i\\    *  *
-    *     o/\\  *      *
- *       ///\i\    *
-     *   /*/o\\  *    *
-   *    /i//\*\      *
-        /o/*\\i\   *
-  *    //i//o\\\\     *
-    * /*////\\\\i\*
- *    //o//i\\*\\\   *
-   * /i///*/\\\\\o\   *
-  *    *   ||     *    
+```txt title="calendar"
 ```
 
-Check out https://adventofcode.com/2021.
+Check out https://adventofcode.com/2025.

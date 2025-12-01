@@ -1,0 +1,28 @@
+advent_of_code::solution!(%DAY_NUMBER%);
+
+fn part_one(input: &str) -> Option<u32> {
+    None
+}
+
+fn part_two(input: &str) -> Option<u32> {
+    None
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    const TEST_INPUT: &str = "";
+    
+    #[test]
+    fn test_part_one() {
+        let result = part_one(TEST_INPUT);
+        assert_eq!(result, None);
+    }
+
+    #[test]
+    fn test_part_two() {
+        let result = part_two(TEST_INPUT);
+        assert_eq!(result, None);
+    }
+}
