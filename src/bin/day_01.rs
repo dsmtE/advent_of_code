@@ -47,23 +47,18 @@ fn part_one(input: &str) -> Option<u32> {
 
 fn part_two(input: &str) -> Option<u32> {
     Some(parse_input_iterator(input).fold((50i32, 0u32), |(dial, click_count), instruction| {
-        let dial_was_at_zero = dial == 0;
-        let mut new_dial = dial + instruction.as_integer_offset();
-
-        let mut click = 0;
-
-        if new_dial >= 100 {
-            click += (new_dial / 100) as u32;
-        } else if new_dial <= 0 {
-            click += ((new_dial / 100).abs() + 1) as u32;
-            // if we were at zero and moved left, we shouldn't count that as a click
-            if dial_was_at_zero {
-                click -= 1;
+        let click = match instruction.direction {
+            Direction::Right => { 
+                ((dial + instruction.distance as i32 )/ 100) as u32
             }
-        }
-        new_dial = new_dial.rem_euclid(100);
+            Direction::Left => {
+                // treat moving left as moving right to count the click by inverting the value
+                let dial_reversed = (100 - dial) % 100;
+                ((dial_reversed + instruction.distance as i32 ) / 100) as u32
+            }
+        };
 
-        (new_dial, click_count + click)
+        ((dial + instruction.as_integer_offset()).rem_euclid(100), click_count + click)
     }).1)
 }
 
