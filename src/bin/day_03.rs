@@ -1,3 +1,5 @@
+use aoc_utils::iterator::IterUtils;
+
 advent_of_code::solution!(3);
 
 fn parse_input_iterator(input: &str) -> impl Iterator<Item = &[u8]> + use<'_>  {
@@ -41,9 +43,7 @@ fn find_max_batteries<const N: usize>(bank: &[u8]) ->Result<[u8; N], &'static st
 }
 
 fn compute_joltage(batteries: &[u8]) -> u64 {
-    batteries.iter().fold(0, |joltage, &b| {
-        joltage * 10 + (b - b'0') as u64
-    }) 
+    batteries.iter().map(|b| (b - b'0') as u64).fold_decimal()
 }
 
 fn part_one(input: &str) -> Option<u64> {
