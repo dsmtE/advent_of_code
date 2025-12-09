@@ -10,6 +10,7 @@ default-run = "advent_of_code"
 aoc_utils = { git = "https://github.com/dsmtE/aoc_utils" }
 chrono = "0.4.42"
 clap = { version = "4.5.53", features = ["derive"] }
+itertools = "0.14.0"
 rayon = "1.11.0"
 
 # Overriding repository URL to work with git submodules
