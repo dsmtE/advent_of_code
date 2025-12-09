@@ -26,29 +26,10 @@ fn sorted_edges(points: &Vec<Point3>) -> Vec<(usize, usize)> {
     edges_with_distance.iter().map(|&(_, i, j)| (i, j)).collect()
 }
 
-#[derive(Debug, PartialEq, Eq, PartialOrd)]
+#[derive(Debug, PartialEq, Eq, PartialOrd, Ord)]
 enum Node {
-    Root(u32), // size
     Child(usize), // parent index
-}
-
-impl Ord for Node {
-    fn cmp(&self, other: &Self) -> std::cmp::Ordering {
-        match self {
-            Node::Root(size_a) => {
-                match other {
-                    Node::Root(size_b) => size_a.cmp(size_b),
-                    Node::Child(_) => std::cmp::Ordering::Greater,
-                }
-            }
-            Node::Child(parent_a) => {
-                match other {
-                    Node::Root(_) => std::cmp::Ordering::Less,
-                    Node::Child(parent_b) => parent_a.cmp(parent_b),
-                }
-            }
-        }
-    }
+    Root(u32), // size
 }
 
 fn create_circuits(n: usize) -> Vec<Node> {
@@ -121,10 +102,10 @@ fn part_one(input: &str) -> Option<u32> {
     circuits.sort_unstable();
 
     // it should work as there are at least 3 circuits in the input
-    Some(circuits.iter().rev().filter_map(|c| {
+    Some(circuits.iter().rev().map(|c| {
         match c {
-            Node::Root(size) => Some(*size),
-            Node::Child(_) => None,
+            Node::Root(size) => *size,
+            Node::Child(_) => panic!("Expected root node"),
         }
     }).take(3).product())
 }
@@ -239,13 +220,13 @@ mod tests {
             debug_print_circuits(&circuits);
         }
     
-        circuits.sort_unstable(); // sort descending
+        circuits.sort_unstable();
 
         println!("after sorting:");
 
         debug_print_circuits(&circuits);
 
-        let result: u32 = circuits.iter().rev().filter(|node| matches!(node, Node::Root(_))).take(3).map(|c| {
+        let result: u32 = circuits.iter().rev().take(3).map(|c| {
             match c {
                 Node::Root(size) => *size,
                 Node::Child(_) => panic!("Expected root node"),
